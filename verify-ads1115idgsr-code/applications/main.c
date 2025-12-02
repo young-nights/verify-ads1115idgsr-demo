@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2006-2025, RT-Thread Development Team
  *
@@ -55,6 +56,16 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
+      float v0 = ads1115_get_ain0();
+      float v1 = ads1115_get_ain1();
+
+      if (v0 >= 0 && v1 >= 0) {
+          rt_kprintf("AIN0: %.3f V   |   AIN1: %.3f V\r\n", v0, v1);
+      } else {
+          rt_kprintf("ADS1115 read failed!\r\n");
+      }
+
       rt_thread_mdelay(500);
     /* USER CODE BEGIN 3 */
   }

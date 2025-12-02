@@ -28,6 +28,24 @@
 #define ADS1115_REG_HI_THRESH   0x03    // 高阈值
 
 
+
+typedef enum {
+    ADS1115_MODE_CONTINUOUS = 0x0000,
+    ADS1115_MODE_SINGLE     = 0x0100,
+} ads1115_mode_t;
+
+
+// 量程对应的实际电压值（单位：V）
+typedef enum {
+    ADS1115_FSR_6_144V = 6144,   // mV
+    ADS1115_FSR_4_096V = 4096,
+    ADS1115_FSR_2_048V = 2048,
+    ADS1115_FSR_1_024V = 1024,
+    ADS1115_FSR_0_512V = 512,
+    ADS1115_FSR_0_256V = 256,
+} ads1115_fsr_mv_t;
+
+
 // 配置寄存器位定义（简化常用）
 typedef enum {
     ADS1115_MUX_AIN0_AIN1 = 0x0000,   // 差分
@@ -76,11 +94,14 @@ extern iicStructure_t ads1115_iic;
 
 //-----------函数声明------------------
 void ads1115_device_init(void);
-
-
-
-
-
-
+rt_err_t iic_ads1115_write_reg(uint8_t reg, uint16_t data);
+rt_err_t iic_ads1115_read_reg(rt_uint8_t reg, rt_uint16_t* i2c_dat);
+rt_err_t ads1115_set_config(uint16_t config);
+rt_err_t ads1115_start_single_conversion(uint8_t channel);
+int16_t ads1115_read_raw(uint8_t channel);
+float ads1115_read_voltage(uint8_t channel);
+int ads1115_read_voltage_mv(uint8_t channel);
+float ads1115_get_ain0(void);
+float ads1115_get_ain1(void);
 
 #endif /* APPLICATIONS_BSP_ADS1115_H_ */

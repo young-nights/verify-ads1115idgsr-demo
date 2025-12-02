@@ -23,7 +23,7 @@
 #include "main.h"
 
 #include "bsp_typedef.h"
-
+#include "bsp_ads1115.h"
 
 
 #endif /* APPLICATIONS_BSP_SYS_H_ */
